@@ -6,7 +6,10 @@
 #                                LOGIC GOES BELOW                     		#
 ##################################################################################
 #
-#
+#First step is to get a random no which is equivalent to a no when we roll a die.
+#Add these numbers to a list untill we get a no which is less than or equal to 
+#penultimate no. Calculate the sum of these numbers and perform this simulation 10000
+#times.
 #
 #
 #
@@ -33,25 +36,38 @@
 
 
 def findSumDieRoll(n):
-	##################################
-	##          FILL ME IN          ##
-	##################################
-	# n is a float
-	sumRolls = n/2 # Replace me with your answer
+    x=[]
+    for i in range(10000):
+        w=[0]
+        while True:
+            w.append(np.random.choice(np.arange(1,n) , 1, [1/n]*int(n)))
+            if w[-1]<=w[-2]:
+                break
+        sum=np.sum(w)
+        final_sum=sum-w[-1]
+        x.append(final_sum)
+    sumRolls=np.mean(x)
 
-	return round(sumRolls, 2)
+    return round(sumRolls, 2)
 
 def findNumberOfRolls(n):
-	##################################
-	##          FILL ME IN          ##
-	##################################
-	# n is a float
-	numRolls = n/2	# Replace me with your answer
+    x=[]
+    for i in range(10000):
+        w=[0]
+        while True:
+            w.append(np.random.choice(np.arange(1,n) , 1, [1/n]*int(n)))
+            if w[-1]<=w[-2]:
+                break
+        rolls=len(w)-1
+        x.append(rolls)
+    
+    numRolls =np.mean(x)
 
-	return round(numRolls, 2)
+    return round(numRolls, 2)
 
 if __name__ == "__main__":
-	numberOfSides = 6.0
-	sumOfRolls = findSumDieRoll(numberOfSides)
-	numberOfRolls = findNumberOfRolls(numberOfSides)
-	print('For a %i-sided die, expected value of sum: %.2f and number of rolls: %.2f'%(numberOfSides, sumOfRolls, numberOfRolls))
+    import numpy as np
+    numberOfSides = 6.0
+    sumOfRolls = findSumDieRoll(numberOfSides)
+    numberOfRolls = findNumberOfRolls(numberOfSides)
+    print('For a %i-sided die, expected value of sum: %.2f and number of rolls: %.2f'%(numberOfSides, sumOfRolls, numberOfRolls))
